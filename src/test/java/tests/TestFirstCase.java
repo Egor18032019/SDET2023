@@ -1,20 +1,26 @@
-package cases;
+package tests;
 
-import cases.base.BaseCase;
+import io.qameta.allure.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.PracticeForm;
+import tests.base.BaseCase;
 import utils.Waiters;
 
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Тест кейс по ТЗ
+ */
 public class TestFirstCase extends BaseCase {
     PracticeForm practiceForm;
 
     @Test()
+    @Description("Заполнение и отправка формы")
+
     public void userCanFillAndSubmitPracticeFrom() throws InterruptedException {
         practiceForm = new PracticeForm(driver);
         String firstName = "firstName";
@@ -58,14 +64,16 @@ public class TestFirstCase extends BaseCase {
 //        2. В таблице на окне отображаются введенные ранее значения
         List<WebElement> listCell = driver.findElements(By.xpath("//table[contains(@class,'table ')]//td")); // 20
         String standard = "";
+        System.out.println(listCell.size());
         for (int i = 0; i < listCell.size(); i++) {
             if (i % 2 == 0) {
                 String key = listCell.get(i).getText();
                 standard = storage.get(key);
             } else {
                 String value = listCell.get(i).getText();
-                Assert.assertEquals(standard, value);
+                System.out.println(standard + "-" + value + " => " + i);
+                Assert.assertEquals(value, standard);
             }
         }
-     }
+    }
 }
