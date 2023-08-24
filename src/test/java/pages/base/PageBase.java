@@ -7,10 +7,11 @@ import org.openqa.selenium.support.PageFactory;
 
 public class PageBase {
 
-    protected WebDriver driver;
+    protected WebDriver webDriver;
 
     public PageBase(WebDriver driver) {
         PageFactory.initElements(driver, this);
+        webDriver = driver;
     }
 
     protected static void clickButton(WebElement button) {
@@ -20,7 +21,8 @@ public class PageBase {
     protected static void setTextElementText(WebElement textElement, String value) {
         textElement.sendKeys(value);
     }
-    protected static void pushEnter(WebElement textElement ) {
+
+    protected static void pushEnter(WebElement textElement) {
         textElement.sendKeys(Keys.ENTER);
     }
 }

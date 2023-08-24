@@ -4,7 +4,24 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.util.Map;
+
 public class Utils {
+    static Map<String, String> monthsAsMap = Map.ofEntries(
+            Map.entry("January", "0"),
+            Map.entry("February", "1"),
+            Map.entry("March", "2"),
+            Map.entry("April", "3"),
+            Map.entry("May", "4"),
+            Map.entry("June", "5"),
+            Map.entry("July", "6"),
+            Map.entry("August", "7"),
+            Map.entry("September", "8"),
+            Map.entry("October", "9"),
+            Map.entry("November", "10"),
+            Map.entry("December", "11")
+    );
+
 
     public static WebDriver getWebDriver(Browser en) {
 
@@ -24,6 +41,11 @@ public class Utils {
     public static boolean isWindows() {
         String os = System.getProperty("os.name").toLowerCase();
         return (os.contains("win"));
+
+    }
+
+    public static String giveMeNumberMonth(String month) {
+        return monthsAsMap.get(month);
 
     }
 }
