@@ -1,5 +1,6 @@
 package tests.base;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,6 +22,7 @@ public class BaseCase {
     public static WebDriverWait wait;
 
     @BeforeSuite
+    @Step("Открытие браузера и переход на страницу")
     public void openURL() {
         System.setProperty("webdriver.http.factory", "jdk-http-client");
         if (Utils.isWindows()) {
@@ -39,6 +41,7 @@ public class BaseCase {
     }
 
     @AfterSuite()
+    @Step("Открытие браузера и переход на страницу")
     public void closeBrowser() {
         driver.manage().deleteAllCookies();
         driver.quit();

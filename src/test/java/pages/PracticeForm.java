@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -109,9 +110,9 @@ public class PracticeForm extends PageBase {
     public @FindBy(xpath = "//div//button[@id='submit']")
     WebElement submit;
 
+    @Step("Заполнение формы")
     public void fillForm(String first, String last, String mail, String gender, String mobile, String filePath, String dateTime, String month, String year, String subjects,
                          String address, String state, String city) {
-
 //        1. Заполнить поле First Name произвольной строкой
         PageBase.setTextElementText(firstName, first);
 //        2. Заполнить поле Last Name произвольной строкой
@@ -171,7 +172,6 @@ public class PracticeForm extends PageBase {
         PracticeForm.setTextElementText(uploadPicture, filePath);
         //9. Заполнить поле Current Address произвольной строкой
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", currentAddress);
-
         Waiters.waitVisibilityElement(currentAddress, wait);
         PracticeForm.setTextElementText(currentAddress, address);
         //10. Выбрать любое значение в Select State с помощью выпадающего списка
@@ -182,7 +182,7 @@ public class PracticeForm extends PageBase {
         for (WebElement webElement : listState) {
             if (webElement.getText().equalsIgnoreCase(state)) {
                 ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", webElement);
-                 break;
+                break;
             }
         }
 //        11. Выбрать любое значение в Select City с помощью выпадающего списка
