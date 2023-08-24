@@ -20,8 +20,7 @@ public class TestFirstCase extends BaseCase {
 
     @Test()
     @Description("Заполнение и отправка формы")
-
-    public void userCanFillAndSubmitPracticeFrom() throws InterruptedException {
+    public void userCanFillAndSubmitPracticeFrom() {
         practiceForm = new PracticeForm(driver);
         String firstName = "firstName";
         String lastname = "lastname";
@@ -33,7 +32,6 @@ public class TestFirstCase extends BaseCase {
         String year = "1982";
         String subjects = "English, Maths";
         String hobbies = ""; // в тз по хобби ничего не было
-
         String path = "C:\\Hobby\\Git\\SDET\\SDET2023\\src\\test\\resources\\";
         String nameFiles = "jpeg.jpg";
         String filePath = path + nameFiles;
