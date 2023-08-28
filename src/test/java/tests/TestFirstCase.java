@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.PracticeForm;
 import tests.base.BaseCase;
+import utils.Utils;
 import utils.Waiters;
 
 import java.util.List;
@@ -32,7 +33,12 @@ public class TestFirstCase extends BaseCase {
         String year = "1982";
         String subjects = "English, Maths";
         String hobbies = ""; // в тз по хобби ничего не было
-        String path = "C:\\Hobby\\Git\\SDET\\SDET2023\\src\\test\\resources\\";
+        String path = "";
+        if (Utils.isWindows()) {
+            path = "C:\\Hobby\\Git\\SDET\\SDET2023\\src\\test\\resources\\";
+        } else {
+            path = "/home/linux/IdeaProjects/SDET/SDET2023/src/test/resources/";
+        }
         String nameFiles = "jpeg.jpg";
         String filePath = path + nameFiles;
         String address = "currentAddress";
@@ -59,17 +65,16 @@ public class TestFirstCase extends BaseCase {
 //        1. Появилось всплывающее окно с заголовком Thanks for submitting the form
         boolean isGood = text.equals(answer);
         Assert.assertTrue(isGood);
-//        2. В таблице на окне отображаются введенные ранее значения
+//        2. В модальном окне отображаются введенные ранее значения
         List<WebElement> listCell = driver.findElements(By.xpath("//table[contains(@class,'table ')]//td")); // 20
         String standard = "";
-        System.out.println(listCell.size());
+
         for (int i = 0; i < listCell.size(); i++) {
             if (i % 2 == 0) {
                 String key = listCell.get(i).getText();
                 standard = storage.get(key);
             } else {
                 String value = listCell.get(i).getText();
-                System.out.println(standard + "-" + value + " => " + i);
                 Assert.assertEquals(value, standard);
             }
         }

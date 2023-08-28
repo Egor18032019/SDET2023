@@ -24,13 +24,16 @@ public class BaseCase {
     @BeforeSuite
     @Step("Открытие браузера и переход на страницу")
     public void openURL() {
-        System.setProperty("webdriver.http.factory", "jdk-http-client");
         if (Utils.isWindows()) {
+            System.setProperty("webdriver.http.factory", "jdk-http-client");
             System.setProperty("webdriver.chrome.driver", Const.pathGoogleDriver);
+        } else {
+            System.out.println("eto linux");
+            System.setProperty("webdriver.chrome.driver", Const.pathGoogleDriverLinux);
+
         }
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
-
         driver = new ChromeDriver(options);
 //        driver.manage().window().fullscreen();
 //        driver.manage().window().maximize();

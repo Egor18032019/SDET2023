@@ -43,7 +43,6 @@ public class PracticeForm extends PageBase {
      */
     @FindBys({@FindBy(xpath = "//label[@class='custom-control-label']")})
     List<WebElement> allGenders;
-
     /**
      * Поле для вода номера телефона
      */
