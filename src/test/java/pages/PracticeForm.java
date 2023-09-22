@@ -7,10 +7,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
+import org.testng.Assert;
 import pages.base.PageBase;
 import utils.Waiters;
 
 import java.util.List;
+import java.util.Map;
 
 import static tests.base.BaseCase.wait;
 import static utils.Utils.giveMeNumberMonth;
@@ -110,23 +112,6 @@ public class PracticeForm extends PageBase {
     public @FindBy(xpath = "//div//button[@id='submit']")
     WebElement submit;
 
-    @Step("Заполнение формы")
-    public void fillForm(String first, String last, String mail, String gender, String mobile, String absolutePath, String dateTime, String month, String year, String subjects,
-                         String address, String state, String city) {
-
-        fillFirstName(first)
-                .fillLastName(last)
-                .fillMail(mail)
-                .chooseGender(gender)
-                .fillMobile(mobile)
-                .fillDate(year, month, dateTime)
-                .fillSubjects(subjects)
-                .uploadPicture(absolutePath)
-                .fillAddress(address)
-                .fillState(state)
-                .fillCity(city)
-                .submitForm();
-    }
 
     @Step(" 1. Заполнить поле First Name произвольной строкой")
     public PracticeForm fillFirstName(String first) {
@@ -262,6 +247,23 @@ public class PracticeForm extends PageBase {
         PracticeForm.clickButton(submit);
     }
 
+    @Step("Сравнение значений")
+    public void comparisonValues(Map<String, String> storage) {
+//        2. В таблице на окне отображаются введенные ранее значения
+        List<WebElement> listCell = webDriver.findElements(By.xpath("//table[contains(@class,'table ')]//td")); // 20
+        String standard = "";
+        System.out.println(listCell.size());
+        for (int i = 0; i < listCell.size(); i++) {
+            if (i % 2 == 0) {
+                String key = listCell.get(i).getText();
+                standard = storage.get(key);
+            } else {
+                String value = listCell.get(i).getText();
+                System.out.println(standard + "-" + value + " => " + i);
+                Assert.assertEquals(value, standard);
+            }
+        }
+    }
 }
 /*
    //        JavascriptExecutor executor = (JavascriptExecutor)webDriver;

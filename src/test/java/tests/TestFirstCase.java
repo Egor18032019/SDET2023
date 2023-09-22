@@ -54,9 +54,19 @@ public class TestFirstCase extends BaseCase {
         );
         File file = new File(new File(filePath).getAbsolutePath());
         String absolutePath = file.getAbsolutePath();
-        practiceForm.fillForm(firstName, lastname, mail, gender, phone,
-                absolutePath, dateTime, month, year, subjects, address, state, city);
-
+        practiceForm.fillFirstName(firstName)
+                .fillLastName(lastname)
+                .fillMail(mail)
+                .chooseGender(gender)
+                .fillMobile(phone)
+                .fillDate(year, month, dateTime)
+                .fillSubjects(subjects)
+                .uploadPicture(absolutePath)
+                .fillAddress(address)
+                .fillState(state)
+                .fillCity(city)
+                .submitForm();
+//TODO сравение как билдер
 
         Waiters.waitVisibilityElement(practiceForm.modal, wait);
         String text = practiceForm.modal.getText();
@@ -64,19 +74,7 @@ public class TestFirstCase extends BaseCase {
 //        1. Появилось всплывающее окно с заголовком Thanks for submitting the form
         boolean isGood = text.equals(answer);
         Assert.assertTrue(isGood);
-//        2. В таблице на окне отображаются введенные ранее значения
-        List<WebElement> listCell = driver.findElements(By.xpath("//table[contains(@class,'table ')]//td")); // 20
-        String standard = "";
-        System.out.println(listCell.size());
-        for (int i = 0; i < listCell.size(); i++) {
-            if (i % 2 == 0) {
-                String key = listCell.get(i).getText();
-                standard = storage.get(key);
-            } else {
-                String value = listCell.get(i).getText();
-                System.out.println(standard + "-" + value + " => " + i);
-                Assert.assertEquals(value, standard);
-            }
-        }
+
+        practiceForm.comparisonValues(storage);
     }
 }
