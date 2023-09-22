@@ -9,6 +9,7 @@ import pages.PracticeForm;
 import tests.base.BaseCase;
 import utils.Waiters;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class TestFirstCase extends BaseCase {
 
     @Test()
     @Description("Заполнение и отправка формы")
-    public void userCanFillAndSubmitPracticeFrom() {
+    public void userCanFillAndSubmitPracticeFrom() throws InterruptedException {
         practiceForm = new PracticeForm(driver);
         String firstName = "firstName";
         String lastname = "lastname";
@@ -32,7 +33,7 @@ public class TestFirstCase extends BaseCase {
         String year = "1982";
         String subjects = "English, Maths";
         String hobbies = ""; // в тз по хобби ничего не было
-        String path = "C:\\Hobby\\Git\\SDET\\SDET2023\\src\\test\\resources\\";
+        String path = "src/test/resources/";
         String nameFiles = "jpeg.jpg";
         String filePath = path + nameFiles;
         String address = "currentAddress";
@@ -51,8 +52,12 @@ public class TestFirstCase extends BaseCase {
                 Map.entry("Address", address),
                 Map.entry("State and City", state + " " + city)
         );
+        File file = new File(new File(filePath).getAbsolutePath());
+        String absolutePath = file.getAbsolutePath();
         practiceForm.fillForm(firstName, lastname, mail, gender, phone,
-                filePath, dateTime, month, year, subjects, address, state, city);
+                absolutePath, dateTime, month, year, subjects, address, state, city);
+
+
         Waiters.waitVisibilityElement(practiceForm.modal, wait);
         String text = practiceForm.modal.getText();
         String answer = "Thanks for submitting the form";

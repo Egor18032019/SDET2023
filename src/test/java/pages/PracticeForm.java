@@ -70,7 +70,7 @@ public class PracticeForm extends PageBase {
     @FindBy(xpath = "//input[@id='subjectsInput']")
     WebElement subjectsInput;
     /**
-     * поле со списком дней
+     * Поле со списком дней
      */
     @FindBy(xpath = "//div[@class='react-datepicker__month']")
     WebElement dayContainer;
@@ -111,25 +111,61 @@ public class PracticeForm extends PageBase {
     WebElement submit;
 
     @Step("Заполнение формы")
-    public void fillForm(String first, String last, String mail, String gender, String mobile, String filePath, String dateTime, String month, String year, String subjects,
+    public void fillForm(String first, String last, String mail, String gender, String mobile, String absolutePath, String dateTime, String month, String year, String subjects,
                          String address, String state, String city) {
-//        1. Заполнить поле First Name произвольной строкой
+
+        fillFirstName(first)
+                .fillLastName(last)
+                .fillMail(mail)
+                .chooseGender(gender)
+                .fillMobile(mobile)
+                .fillDate(year, month, dateTime)
+                .fillSubjects(subjects)
+                .uploadPicture(absolutePath)
+                .fillAddress(address)
+                .fillState(state)
+                .fillCity(city)
+                .submitForm();
+    }
+
+    @Step(" 1. Заполнить поле First Name произвольной строкой")
+    public PracticeForm fillFirstName(String first) {
         PageBase.setTextElementText(firstName, first);
-//        2. Заполнить поле Last Name произвольной строкой
+        return this;
+    }
+
+    @Step("2. Заполнить поле Last Name произвольной строкой")
+    public PracticeForm fillLastName(String last) {
         PageBase.setTextElementText(lastName, last);
-//        3. Заполнить поле Email строкой формата name@example.com
+        return this;
+    }
+
+    @Step("3. Заполнить поле Email строкой формата name@example.com")
+    public PracticeForm fillMail(String mail) {
         PageBase.setTextElementText(userEmail, mail);
-//        Выбрать значение в Gender с помощью переключателя
+        return this;
+    }
+
+    @Step("4. Выбрать значение в Gender с помощью переключателя")
+    public PracticeForm chooseGender(String gender) {
         for (WebElement webElement : allGenders) {
             if (webElement.getText().equalsIgnoreCase(gender)) {
                 webElement.click();
                 break;
             }
         }
-//        5. Заполнить поле Mobile произвольными 10 цифрами
+        return this;
+    }
+
+    @Step("5. Заполнить поле Mobile произвольными 10 цифрами")
+    public PracticeForm fillMobile(String mobile) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", mobileNumber);
         PageBase.setTextElementText(mobileNumber, mobile);
-//        6. Заполнить поле Date of birth произвольной датой с помощью всплывающего календаря
+        return this;
+    }
+
+    @Step(" 6. Заполнить поле Date of birth произвольной датой с помощью всплывающего календаря")
+    public PracticeForm fillDate(String year, String month, String dateTime) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", dateOfBirthInput);
         PageBase.clickButton(dateOfBirthInput);
         Waiters.waitVisibilityElement(dayContainer, wait);
@@ -157,7 +193,11 @@ public class PracticeForm extends PageBase {
                 }
             }
         }
-//      7. Заполнить поле Subjects произвольной строкой
+        return this;
+    }
+
+    @Step("7. Заполнить поле Subjects произвольной строкой")
+    public PracticeForm fillSubjects(String subjects) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", subjectsInput);
         String[] subjectsForArray = subjects.split(",");
         Waiters.waitVisibilityElement(subjectsInput, wait);
@@ -165,16 +205,27 @@ public class PracticeForm extends PageBase {
             PracticeForm.setTextElementText(subjectsInput, subject);
             PracticeForm.pushEnter(subjectsInput);
         }
-        //8. Загрузить любое изображение в поле Picture
-        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", uploadPicture);
+        return this;
+    }
 
+    @Step("8. Загрузить любое изображение в поле Picture")
+    public PracticeForm uploadPicture(String filePath) {
+        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", uploadPicture);
         Waiters.waitVisibilityElement(uploadPicture, wait);
         PracticeForm.setTextElementText(uploadPicture, filePath);
-        //9. Заполнить поле Current Address произвольной строкой
+        return this;
+    }
+
+    @Step("9. Заполнить поле Current Address произвольной строкой")
+    public PracticeForm fillAddress(String address) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", currentAddress);
         Waiters.waitVisibilityElement(currentAddress, wait);
         PracticeForm.setTextElementText(currentAddress, address);
-        //10. Выбрать любое значение в Select State с помощью выпадающего списка
+        return this;
+    }
+
+    @Step("10. Выбрать любое значение в Select State с помощью выпадающего списка")
+    public PracticeForm fillState(String state) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", stateButton);
         PracticeForm.clickButton(stateButton);
         Waiters.waitVisibilityElement(menu, wait);
@@ -185,7 +236,11 @@ public class PracticeForm extends PageBase {
                 break;
             }
         }
-//        11. Выбрать любое значение в Select City с помощью выпадающего списка
+        return this;
+    }
+
+    @Step("11. Выбрать любое значение в Select City с помощью выпадающего списка")
+    public PracticeForm fillCity(String city) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", cityButton);
         PracticeForm.clickButton(cityButton);
         Waiters.waitVisibilityElement(menu, wait);
@@ -197,10 +252,16 @@ public class PracticeForm extends PageBase {
                 break;
             }
         }
-//        12. Нажать кнопку Submit
+        return this;
+    }
+
+    @Step("12. Нажать кнопку Submit")
+    public void submitForm() {
+
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", submit);
         PracticeForm.clickButton(submit);
     }
+
 }
 /*
    //        JavascriptExecutor executor = (JavascriptExecutor)webDriver;
