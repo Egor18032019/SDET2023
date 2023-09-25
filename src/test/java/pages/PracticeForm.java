@@ -1,6 +1,8 @@
 package pages;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import io.qameta.allure.Story;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -9,8 +11,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.testng.Assert;
 import pages.base.PageBase;
+import utils.Const;
+import utils.Utils;
 import utils.Waiters;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -113,25 +118,25 @@ public class PracticeForm extends PageBase {
     WebElement submit;
 
 
-    @Step(" 1. Заполнить поле First Name произвольной строкой")
+    @Step(" 1. Заполнить поле First Name значением {first}")
     public PracticeForm fillFirstName(String first) {
         PageBase.setTextElementText(firstName, first);
         return this;
     }
 
-    @Step("2. Заполнить поле Last Name произвольной строкой")
+    @Step("2. Заполнить поле Last Name значением {last}")
     public PracticeForm fillLastName(String last) {
         PageBase.setTextElementText(lastName, last);
         return this;
     }
 
-    @Step("3. Заполнить поле Email строкой формата name@example.com")
+    @Step("3. Заполнить поле Email строкой значением {mail}")
     public PracticeForm fillMail(String mail) {
         PageBase.setTextElementText(userEmail, mail);
         return this;
     }
 
-    @Step("4. Выбрать значение в Gender с помощью переключателя")
+    @Step("4. Выбрать значение в Gender = {gender} с помощью переключателя")
     public PracticeForm chooseGender(String gender) {
         for (WebElement webElement : allGenders) {
             if (webElement.getText().equalsIgnoreCase(gender)) {
@@ -142,14 +147,14 @@ public class PracticeForm extends PageBase {
         return this;
     }
 
-    @Step("5. Заполнить поле Mobile произвольными 10 цифрами")
+    @Step("5. Заполнить поле Mobile значением {mobile} ")
     public PracticeForm fillMobile(String mobile) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", mobileNumber);
         PageBase.setTextElementText(mobileNumber, mobile);
         return this;
     }
 
-    @Step(" 6. Заполнить поле Date of birth произвольной датой с помощью всплывающего календаря")
+    @Step(" 6. Заполнить поле Date of birth с помощью всплывающего календаря")
     public PracticeForm fillDate(String year, String month, String dateTime) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", dateOfBirthInput);
         PageBase.clickButton(dateOfBirthInput);
@@ -161,9 +166,6 @@ public class PracticeForm extends PageBase {
         PracticeForm.clickButton(monthSelect.findElement(By.xpath(valueMonth)));
         //или через цикл
         //   List<WebElement> allMontns = monthContainer.findElements(By.xpath(
-
-        // выбор года
-//        PracticeForm.clickButton(yearSelect); //TODO надо ли проверять клик на кнопку и что открылось?
         String valueYear = "option[@value=" + year + "]";
         PracticeForm.clickButton(yearSelect.findElement(By.xpath(valueYear)));
         // выбор дня
@@ -181,7 +183,7 @@ public class PracticeForm extends PageBase {
         return this;
     }
 
-    @Step("7. Заполнить поле Subjects произвольной строкой")
+    @Step("7. Заполнить поле Subjects значением {subjects}")
     public PracticeForm fillSubjects(String subjects) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", subjectsInput);
         String[] subjectsForArray = subjects.split(",");
@@ -201,7 +203,7 @@ public class PracticeForm extends PageBase {
         return this;
     }
 
-    @Step("9. Заполнить поле Current Address произвольной строкой")
+    @Step("9. Заполнить поле Current Address значением {address}")
     public PracticeForm fillAddress(String address) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", currentAddress);
         Waiters.waitVisibilityElement(currentAddress, wait);
@@ -209,7 +211,7 @@ public class PracticeForm extends PageBase {
         return this;
     }
 
-    @Step("10. Выбрать любое значение в Select State с помощью выпадающего списка")
+    @Step("10. Выбрать значение = {state} в Select State с помощью выпадающего списка")
     public PracticeForm fillState(String state) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", stateButton);
         PracticeForm.clickButton(stateButton);
@@ -224,7 +226,7 @@ public class PracticeForm extends PageBase {
         return this;
     }
 
-    @Step("11. Выбрать любое значение в Select City с помощью выпадающего списка")
+    @Step("11. Выбрать любое значение = {city} в Select City с помощью выпадающего списка")
     public PracticeForm fillCity(String city) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", cityButton);
         PracticeForm.clickButton(cityButton);
@@ -241,25 +243,36 @@ public class PracticeForm extends PageBase {
     }
 
     @Step("12. Нажать кнопку Submit")
-    public void submitForm() {
-
+    public void submitForm() throws IOException {
+        Utils.takeScreenShot(webDriver);
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", submit);
         PracticeForm.clickButton(submit);
     }
 
+    @Step("Проверка модального окна")
+    public void modalWindow() {
+        Waiters.waitVisibilityElement(modal, wait);
+        String text = modal.getText();
+        String answer = "Thanks for submitting the form";
+//        1. Появилось всплывающее окно с заголовком Thanks for submitting the form
+        boolean isGood = text.equals(answer);
+        Assert.assertTrue(isGood);
+    }
+
     @Step("Сравнение значений")
-    public void comparisonValues(Map<String, String> storage) {
-//        2. В таблице на окне отображаются введенные ранее значения
+    @Story("В таблице на окне отображаются введенные ранее значения")
+    public void comparisonValues(Map<String, String> storage) throws IOException {
+        Utils.takeScreenShot(webDriver);
+        Utils.takeValues(webDriver);
+        Allure.addAttachment("Val", Const.storage.toString());
         List<WebElement> listCell = webDriver.findElements(By.xpath("//table[contains(@class,'table ')]//td")); // 20
         String standard = "";
-        System.out.println(listCell.size());
         for (int i = 0; i < listCell.size(); i++) {
             if (i % 2 == 0) {
                 String key = listCell.get(i).getText();
                 standard = storage.get(key);
             } else {
                 String value = listCell.get(i).getText();
-                System.out.println(standard + "-" + value + " => " + i);
                 Assert.assertEquals(value, standard);
             }
         }
