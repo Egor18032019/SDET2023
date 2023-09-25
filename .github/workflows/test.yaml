@@ -8,11 +8,7 @@
 
 name: Java CI with Maven
 
-on:
-  push:
-    branches: [ "main, gitActions" ]
-  pull_request:
-    branches: [ "main" ]
+on: workflow_dispatch
 
 jobs:
   build:

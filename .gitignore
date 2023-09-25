@@ -1,5 +1,5 @@
-.allure
-.allure/allure-2.13.1
+.allure/
+
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
