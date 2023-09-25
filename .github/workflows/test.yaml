@@ -1,4 +1,12 @@
-name: Test
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Java CI with Maven
 
 on:
   push:
@@ -7,39 +15,28 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test:
-    # где запускаем
+  build:
+
     runs-on: ubuntu-latest
-    # что делаем
+
     steps:
-      # выкачиваем репозиторий
       - uses: actions/checkout@v3
-      # настраиваем java
-      - uses: actions/setup-java@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
         with:
-          distribution: 'zulu'
           java-version: '11'
-      # запускаем тесты
-      - run: mvn -B package --file pom.xml
-      # скачиваем историю тестов
-      - uses: actions/checkout@v2
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
-      # генерируем отчет
-      - uses: simple-elf/allure-report-action@master
-        if: always()
-        with:
-          gh_pages: gh-pages
-          allure_results: build/allure-results
-          allure_report: allure-report
-          allure_history: allure-history
-      # публикуем отчет
-      - uses: peaceiris/actions-gh-pages@v2
-        if: always()
-        env:
-          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: allure-history
+          distribution: 'temurin'
+          cache: maven
+      - name: Install Google Chrome
+        run: |
+          echo Download: Chrome
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          echo Install: Chrome
+          sudo dpkg --install google-chrome-stable_current_amd64.deb
+          wget https://chromedriver.storage.googleapis.com/112.0.5615.49/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /usr/bin/chromedriver 
+          sudo chown root:root /usr/bin/chromedriver
+          sudo chmod +x /usr/bin/chromedriver
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml

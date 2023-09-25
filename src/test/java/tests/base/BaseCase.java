@@ -1,10 +1,7 @@
 package tests.base;
 
-import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -14,7 +11,6 @@ import org.testng.annotations.BeforeSuite;
 import utils.Const;
 import utils.Utils;
 
-import java.io.IOException;
 import java.time.Duration;
 
 /**
@@ -34,17 +30,16 @@ public class BaseCase {
         }
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
-
         driver = new ChromeDriver(options);
-//        driver.manage().window().fullscreen();
-//        driver.manage().window().maximize();
+/*
+        driver.manage().window().fullscreen();
+        driver.manage().window().maximize();
+*/
         driver.manage().window().setSize(new Dimension(1280, 1024));
         wait = new WebDriverWait(driver, Duration.ofSeconds(1));
-
         driver.navigate().to(Const.urlMain);
     }
 
-    //    @AfterMethod
     @AfterSuite()
     @Step("Открытие браузера и переход на страницу")
     public void closeBrowser() {
