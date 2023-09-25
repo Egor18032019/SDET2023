@@ -34,12 +34,12 @@ public class PracticeForm extends PageBase {
      * Первое поле в строке Name
      */
     @FindBy(id = "firstName")
-    public  WebElement firstName;
+    public WebElement firstName;
     /**
      * Второе поле в строке Name
      */
     @FindBy(id = "lastName")
-    public  WebElement lastName;
+    public WebElement lastName;
     /**
      * Поле Email
      */
@@ -49,7 +49,7 @@ public class PracticeForm extends PageBase {
      * Список radio для выбора пола(Gender)
      */
     @FindBys({@FindBy(xpath = "//label[@class='custom-control-label']")})
-    List<WebElement> allGenders;
+    public List<WebElement> allGenders;
 
     /**
      * Поле для вода номера телефона
@@ -60,7 +60,7 @@ public class PracticeForm extends PageBase {
      * Поле для вода день рождения(вызывает datepicker)
      */
     @FindBy(xpath = "//div[@class='react-datepicker__input-container']")
-    public  WebElement dateOfBirthInput;
+    public WebElement dateOfBirthInput;
     /**
      * Кнопка выбор месяца в datepickere
      */
@@ -105,18 +105,17 @@ public class PracticeForm extends PageBase {
      * Загрузка файла input
      */
     @FindBy(xpath = "//input[@id='uploadPicture']")
-    WebElement uploadPicture;
+    public WebElement uploadPicture;
     /**
      * Итоговое модальное окно
      */
-    public @FindBy(xpath = "//div[@class='modal-header']")
-    WebElement modal;
+    @FindBy(xpath = "//div[@class='modal-header']")
+    public WebElement modal;
     /**
      * Кнопка отправки формы
      */
-    public @FindBy(xpath = "//div//button[@id='submit']")
-    WebElement submit;
-
+    @FindBy(xpath = "//div//button[@id='submit']")
+    public WebElement submit;
 
     @Step(" 1. Заполнить поле First Name значением {first}")
     public PracticeForm fillFirstName(String first) {
@@ -149,7 +148,7 @@ public class PracticeForm extends PageBase {
 
     @Step("5. Заполнить поле Mobile значением {mobile} ")
     public PracticeForm fillMobile(String mobile) {
-        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", mobileNumber);
+        clickOnElementWithJavaScript(mobileNumber);
         PageBase.setTextElementText(mobileNumber, mobile);
         return this;
     }
@@ -160,7 +159,7 @@ public class PracticeForm extends PageBase {
         PageBase.clickButton(dateOfBirthInput);
         Waiters.waitVisibilityElement(dayContainer, wait);
         //выбор месяца
-        // Можно так
+        // Первый вариант
         String numberMonth = giveMeNumberMonth(month);
         String valueMonth = "option[@value=" + numberMonth + "]";
         PracticeForm.clickButton(monthSelect.findElement(By.xpath(valueMonth)));
@@ -185,7 +184,7 @@ public class PracticeForm extends PageBase {
 
     @Step("7. Заполнить поле Subjects значением {subjects}")
     public PracticeForm fillSubjects(String subjects) {
-        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", subjectsInput);
+        clickOnElementWithJavaScript(subjectsInput);
         String[] subjectsForArray = subjects.split(",");
         Waiters.waitVisibilityElement(subjectsInput, wait);
         for (String subject : subjectsForArray) {
@@ -197,7 +196,7 @@ public class PracticeForm extends PageBase {
 
     @Step("8. Загрузить любое изображение в поле Picture")
     public PracticeForm uploadPicture(String filePath) {
-        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", uploadPicture);
+        clickOnElementWithJavaScript(uploadPicture);
         Waiters.waitVisibilityElement(uploadPicture, wait);
         PracticeForm.setTextElementText(uploadPicture, filePath);
         return this;
@@ -205,7 +204,7 @@ public class PracticeForm extends PageBase {
 
     @Step("9. Заполнить поле Current Address значением {address}")
     public PracticeForm fillAddress(String address) {
-        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", currentAddress);
+        clickOnElementWithJavaScript(currentAddress);
         Waiters.waitVisibilityElement(currentAddress, wait);
         PracticeForm.setTextElementText(currentAddress, address);
         return this;
@@ -213,13 +212,13 @@ public class PracticeForm extends PageBase {
 
     @Step("10. Выбрать значение = {state} в Select State с помощью выпадающего списка")
     public PracticeForm fillState(String state) {
-        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", stateButton);
+        clickOnElementWithJavaScript(stateButton);
         PracticeForm.clickButton(stateButton);
         Waiters.waitVisibilityElement(menu, wait);
         List<WebElement> listState = menu.findElements(By.xpath("//div[contains(@id,'react-select-3-option-')]"));
         for (WebElement webElement : listState) {
             if (webElement.getText().equalsIgnoreCase(state)) {
-                ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", webElement);
+                clickOnElementWithJavaScript(webElement);
                 break;
             }
         }
@@ -228,14 +227,13 @@ public class PracticeForm extends PageBase {
 
     @Step("11. Выбрать любое значение = {city} в Select City с помощью выпадающего списка")
     public PracticeForm fillCity(String city) {
-        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", cityButton);
+        clickOnElementWithJavaScript(cityButton);
         PracticeForm.clickButton(cityButton);
         Waiters.waitVisibilityElement(menu, wait);
         List<WebElement> listCity = menu.findElements(By.xpath("//div[contains(@id,'react-select-4-option-')]"));
         for (WebElement webElement : listCity) {
             if (webElement.getText().equalsIgnoreCase(city)) {
-                ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", webElement);
-//                PracticeForm.clickButton(webElement); //Закрывает другим элементом при некоторых расширениях
+                clickOnElementWithJavaScript(webElement);
                 break;
             }
         }
@@ -245,7 +243,7 @@ public class PracticeForm extends PageBase {
     @Step("12. Нажать кнопку Submit")
     public void submitForm() throws IOException {
         Utils.takeScreenShot(webDriver);
-        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", submit);
+        clickOnElementWithJavaScript(submit);
         PracticeForm.clickButton(submit);
     }
 
@@ -254,14 +252,13 @@ public class PracticeForm extends PageBase {
         Waiters.waitVisibilityElement(modal, wait);
         String text = modal.getText();
         String answer = "Thanks for submitting the form";
-//        1. Появилось всплывающее окно с заголовком Thanks for submitting the form
         boolean isGood = text.equals(answer);
         Assert.assertTrue(isGood);
     }
 
     @Step("Сравнение значений")
     @Story("В таблице на окне отображаются введенные ранее значения")
-    public void comparisonValues(Map<String, String> storage) throws IOException {
+    public void comparisonValues(Map<String, String> storage) {
         Utils.takeScreenShot(webDriver);
         Utils.takeValues(webDriver);
         Allure.addAttachment("Val", Const.storage.toString());
@@ -277,23 +274,8 @@ public class PracticeForm extends PageBase {
             }
         }
     }
+
+    private void clickOnElementWithJavaScript(WebElement element) {
+        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", element);
+    }
 }
-/*
-   //        JavascriptExecutor executor = (JavascriptExecutor)webDriver;
-//        executor.executeScript("document.body.style.zoom = '0.50'");
-
-<div class=" css-11unzgr">
-<div class=" css-9gakcf-option" id="react-select-3-option-0" tabindex="-1">NCR</div>
-<div class=" css-yt9ioa-option" id="react-select-3-option-1" tabindex="-1">Uttar Pradesh</div>
-<div class=" css-yt9ioa-option" id="react-select-3-option-2" tabindex="-1">Haryana</div>
-<div class=" css-yt9ioa-option" id="react-select-3-option-3" tabindex="-1">Rajasthan</div></div></div>
-
-<div class=" css-26l3qy-menu">
-<div class=" css-11unzgr">
-<div class=" css-yt9ioa-option" id="react-select-4-option-0" tabindex="-1">Delhi</div>
-<div class=" css-yt9ioa-option" id="react-select-4-option-1" tabindex="-1">Gurgaon</div>
-<div class=" css-9gakcf-option" id="react-select-4-option-2" tabindex="-1">Noida</div>
-</div>
-</div>
-
-   */

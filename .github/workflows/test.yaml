@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   test:
-    # где заускаем
+    # где запускаем
     runs-on: ubuntu-latest
     # что делаем
     steps:
