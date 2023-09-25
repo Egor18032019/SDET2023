@@ -8,7 +8,6 @@ import tests.base.BaseCase;
 import utils.Const;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Тест кейс по ТЗ
@@ -19,10 +18,8 @@ public class TestFirstCase extends BaseCase {
     @Test()
     @Owner("Egor")
     @Description("Заполнение и отправка формы")
-    public void userCanFillAndSubmitPracticeFrom() throws IOException {
+    public void userCanFillAndSubmitPracticeFrom() {
         practiceForm = new PracticeForm(driver);
-
-
         File file = new File(new File(Const.filePath).getAbsolutePath());
         String absolutePath = file.getAbsolutePath();
         practiceForm.fillFirstName(Const.firstName)

@@ -241,7 +241,7 @@ public class PracticeForm extends PageBase {
     }
 
     @Step("12. Нажать кнопку Submit")
-    public void submitForm() throws IOException {
+    public void submitForm() {
         Utils.takeScreenShot(webDriver);
         clickOnElementWithJavaScript(submit);
         PracticeForm.clickButton(submit);
