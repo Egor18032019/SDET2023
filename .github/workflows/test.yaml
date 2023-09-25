@@ -1,6 +1,10 @@
 name: Test
 
-on: workflow_dispatch
+on:
+  push:
+    branches: [ "main, gitActions" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   test:
