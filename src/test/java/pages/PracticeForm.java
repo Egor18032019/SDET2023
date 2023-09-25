@@ -34,17 +34,17 @@ public class PracticeForm extends PageBase {
      * Первое поле в строке Name
      */
     @FindBy(id = "firstName")
-    WebElement firstName;
+    public  WebElement firstName;
     /**
      * Второе поле в строке Name
      */
     @FindBy(id = "lastName")
-    WebElement lastName;
+    public  WebElement lastName;
     /**
      * Поле Email
      */
     @FindBy(xpath = "//input[@id='userEmail']")
-    WebElement userEmail;
+    public WebElement userEmail;
     /**
      * Список radio для выбора пола(Gender)
      */
@@ -55,32 +55,32 @@ public class PracticeForm extends PageBase {
      * Поле для вода номера телефона
      */
     @FindBy(xpath = "//input[@id='userNumber']")
-    WebElement mobileNumber;
+    public WebElement mobileNumber;
     /**
      * Поле для вода день рождения(вызывает datepicker)
      */
     @FindBy(xpath = "//div[@class='react-datepicker__input-container']")
-    WebElement dateOfBirthInput;
+    public  WebElement dateOfBirthInput;
     /**
      * Кнопка выбор месяца в datepickere
      */
     @FindBy(xpath = "//select[@class='react-datepicker__month-select']")
-    WebElement monthSelect;
+    public WebElement monthSelect;
     /**
      * Кнопка выбора года в datepickere
      */
     @FindBy(xpath = "//select[@class='react-datepicker__year-select']")
-    WebElement yearSelect;
+    public WebElement yearSelect;
     /**
      * Поле Subjects
      */
     @FindBy(xpath = "//input[@id='subjectsInput']")
-    WebElement subjectsInput;
+    public WebElement subjectsInput;
     /**
      * Поле со списком дней
      */
     @FindBy(xpath = "//div[@class='react-datepicker__month']")
-    WebElement dayContainer;
+    public WebElement dayContainer;
     /**
      * Поле для текстового вода адреса
      */
