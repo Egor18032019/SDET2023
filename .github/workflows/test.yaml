@@ -20,7 +20,7 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
       # запускаем тесты
-      - run: ./gradlew clean test
+      - run: mvn -B package --file pom.xml
       # скачиваем историю тестов
       - uses: actions/checkout@v2
         if: always()
