@@ -30,8 +30,8 @@ jobs:
           echo Install: Chrome
           sudo dpkg --install google-chrome-stable_current_amd64.deb
           wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/117.0.5938.92/linux64/chromedriver-linux64.zip
+          unzip chromedriver-linux64.zip
           cd chromedriver-linux64.zip
-          unzip linux64/chromedriver-linux64.zip
           sudo mv chromedriver /usr/bin/chromedriver 
           sudo chown root:root /usr/bin/chromedriver
           sudo chmod +x /usr/bin/chromedriver
