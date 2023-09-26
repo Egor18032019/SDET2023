@@ -215,6 +215,7 @@ public class PracticeForm extends PageBase {
     public PracticeForm fillState(String state) {
         scrollWithJavaScript(stateButton);
         PracticeForm.clickButton(stateButton);
+        Waiters.waitVisibilityElement(menu, wait);
         List<WebElement> listState = menu.findElements(By.xpath("//div[contains(@id,'react-select-3-option-')]"));
         for (WebElement webElement : listState) {
             if (webElement.getText().equalsIgnoreCase(state)) {
@@ -230,6 +231,7 @@ public class PracticeForm extends PageBase {
     public PracticeForm fillCity(String city) {
         scrollWithJavaScript(cityButton);
         PracticeForm.clickButton(cityButton);
+        Waiters.waitVisibilityElement(menu, wait);
         List<WebElement> listCity = menu.findElements(By.xpath("//div[contains(@id,'react-select-4-option-')]"));
         for (WebElement webElement : listCity) {
             if (webElement.getText().equalsIgnoreCase(city)) {
