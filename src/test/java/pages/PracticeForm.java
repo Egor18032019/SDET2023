@@ -90,7 +90,10 @@ public class PracticeForm extends PageBase {
      */
     @FindBy(xpath = "//div[@id='state']")
     public WebElement stateButton;
-
+    @FindBy(xpath = "//div[@id='state'] //input")
+    public WebElement stateInput;
+    @FindBy(xpath = "//div[@id='city'] //input")
+    public WebElement cityInput;
     /**
      * Select city button
      */
@@ -190,7 +193,7 @@ public class PracticeForm extends PageBase {
         Waiters.waitVisibilityElement(subjectsInput, wait);
         for (String subject : subjectsForArray) {
             PracticeForm.setTextElementText(subjectsInput, subject);
-            PracticeForm.pushEnter(subjectsInput);
+            pushEnter(subjectsInput);
         }
         return this;
     }
@@ -216,14 +219,16 @@ public class PracticeForm extends PageBase {
         scrollWithJavaScript(stateButton);
         PracticeForm.clickButton(stateButton);
         Waiters.waitVisibilityElement(menu, wait);
-        List<WebElement> listState = menu.findElements(By.xpath("//div[contains(@id,'react-select-3-option-')]"));
-        for (WebElement webElement : listState) {
-            if (webElement.getText().equalsIgnoreCase(state)) {
-                scrollWithJavaScript(webElement);
-                webElement.click();
-                break;
-            }
-        }
+        stateInput.sendKeys(state);
+        pushEnter(stateInput);
+//        List<WebElement> listState = menu.findElements(By.xpath("//div[contains(@id,'react-select-3-option-')]"));
+//        for (WebElement webElement : listState) {
+//            if (webElement.getText().equalsIgnoreCase(state)) {
+//                scrollWithJavaScript(webElement);
+//                webElement.click();
+//                break;
+//            }
+//        }
         return this;
     }
 
@@ -232,14 +237,16 @@ public class PracticeForm extends PageBase {
         scrollWithJavaScript(cityButton);
         PracticeForm.clickButton(cityButton);
         Waiters.waitVisibilityElement(menu, wait);
-        List<WebElement> listCity = menu.findElements(By.xpath("//div[contains(@id,'react-select-4-option-')]"));
-        for (WebElement webElement : listCity) {
-            if (webElement.getText().equalsIgnoreCase(city)) {
-                scrollWithJavaScript(webElement);
-                webElement.click();
-                break;
-            }
-        }
+        cityInput.sendKeys(city);
+        pushEnter(cityInput);
+//        List<WebElement> listCity = menu.findElements(By.xpath("//div[contains(@id,'react-select-4-option-')]"));
+//        for (WebElement webElement : listCity) {
+//            if (webElement.getText().equalsIgnoreCase(city)) {
+//                scrollWithJavaScript(webElement);
+//                webElement.click();
+//                break;
+//            }
+//        }
         return this;
     }
 
