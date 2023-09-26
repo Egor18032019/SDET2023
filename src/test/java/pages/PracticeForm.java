@@ -287,9 +287,10 @@ public class PracticeForm extends PageBase {
     }
 
     private void scrollWithJavaScript(WebElement element) {
-        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", element);
-        Actions actions = new Actions(webDriver);
-        actions.moveToElement(element);
-        actions.perform();
+        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(true);", element);
+//        js.executeScript("window.scrollTo(0, Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, document.documentElement.clientHeight));")
+//        Actions actions = new Actions(webDriver);
+//        actions.moveToElement(element);
+//        actions.perform();
     }
 }
