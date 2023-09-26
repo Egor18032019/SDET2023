@@ -255,6 +255,7 @@ public class PracticeForm extends PageBase {
     public void submitForm() {
         Utils.takeScreenShot(webDriver);
         scrollWithJavaScript(submit);
+        Waiters.waitVisibilityElement(submit,wait);
         PracticeForm.clickButton(submit);
     }
 
