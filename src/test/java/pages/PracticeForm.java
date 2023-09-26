@@ -15,7 +15,6 @@ import utils.Const;
 import utils.Utils;
 import utils.Waiters;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -91,11 +90,13 @@ public class PracticeForm extends PageBase {
      */
     @FindBy(xpath = "//div[@id='state']")
     public WebElement stateButton;
+
     /**
      * Select city button
      */
     @FindBy(xpath = "//div[@id='city']")
     public WebElement cityButton;
+
     /**
      * меню для выбора state или city
      */
@@ -148,7 +149,7 @@ public class PracticeForm extends PageBase {
 
     @Step("5. Заполнить поле Mobile значением {mobile} ")
     public PracticeForm fillMobile(String mobile) {
-        clickOnElementWithJavaScript(mobileNumber);
+        scrollWithJavaScript(mobileNumber);
         PageBase.setTextElementText(mobileNumber, mobile);
         return this;
     }
@@ -184,7 +185,7 @@ public class PracticeForm extends PageBase {
 
     @Step("7. Заполнить поле Subjects значением {subjects}")
     public PracticeForm fillSubjects(String subjects) {
-        clickOnElementWithJavaScript(subjectsInput);
+        scrollWithJavaScript(subjectsInput);
         String[] subjectsForArray = subjects.split(",");
         Waiters.waitVisibilityElement(subjectsInput, wait);
         for (String subject : subjectsForArray) {
@@ -196,7 +197,7 @@ public class PracticeForm extends PageBase {
 
     @Step("8. Загрузить любое изображение в поле Picture")
     public PracticeForm uploadPicture(String filePath) {
-        clickOnElementWithJavaScript(uploadPicture);
+        scrollWithJavaScript(uploadPicture);
         Waiters.waitVisibilityElement(uploadPicture, wait);
         PracticeForm.setTextElementText(uploadPicture, filePath);
         return this;
@@ -204,7 +205,7 @@ public class PracticeForm extends PageBase {
 
     @Step("9. Заполнить поле Current Address значением {address}")
     public PracticeForm fillAddress(String address) {
-        clickOnElementWithJavaScript(currentAddress);
+        scrollWithJavaScript(currentAddress);
         Waiters.waitVisibilityElement(currentAddress, wait);
         PracticeForm.setTextElementText(currentAddress, address);
         return this;
@@ -212,13 +213,13 @@ public class PracticeForm extends PageBase {
 
     @Step("10. Выбрать значение = {state} в Select State с помощью выпадающего списка")
     public PracticeForm fillState(String state) {
-        clickOnElementWithJavaScript(stateButton);
+        scrollWithJavaScript(stateButton);
         PracticeForm.clickButton(stateButton);
-        Waiters.waitVisibilityElement(menu, wait);
         List<WebElement> listState = menu.findElements(By.xpath("//div[contains(@id,'react-select-3-option-')]"));
         for (WebElement webElement : listState) {
             if (webElement.getText().equalsIgnoreCase(state)) {
-                clickOnElementWithJavaScript(webElement);
+                scrollWithJavaScript(webElement);
+                webElement.click();
                 break;
             }
         }
@@ -227,13 +228,13 @@ public class PracticeForm extends PageBase {
 
     @Step("11. Выбрать любое значение = {city} в Select City с помощью выпадающего списка")
     public PracticeForm fillCity(String city) {
-        clickOnElementWithJavaScript(cityButton);
+        scrollWithJavaScript(cityButton);
         PracticeForm.clickButton(cityButton);
-        Waiters.waitVisibilityElement(menu, wait);
         List<WebElement> listCity = menu.findElements(By.xpath("//div[contains(@id,'react-select-4-option-')]"));
         for (WebElement webElement : listCity) {
             if (webElement.getText().equalsIgnoreCase(city)) {
-                clickOnElementWithJavaScript(webElement);
+                scrollWithJavaScript(webElement);
+                webElement.click();
                 break;
             }
         }
@@ -243,7 +244,7 @@ public class PracticeForm extends PageBase {
     @Step("12. Нажать кнопку Submit")
     public void submitForm() {
         Utils.takeScreenShot(webDriver);
-        clickOnElementWithJavaScript(submit);
+        scrollWithJavaScript(submit);
         PracticeForm.clickButton(submit);
     }
 
@@ -275,7 +276,7 @@ public class PracticeForm extends PageBase {
         }
     }
 
-    private void clickOnElementWithJavaScript(WebElement element) {
+    private void scrollWithJavaScript(WebElement element) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", element);
     }
 }
