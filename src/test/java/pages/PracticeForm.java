@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.testng.Assert;
@@ -287,5 +288,8 @@ public class PracticeForm extends PageBase {
 
     private void scrollWithJavaScript(WebElement element) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView();", element);
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(element);
+        actions.perform();
     }
 }
