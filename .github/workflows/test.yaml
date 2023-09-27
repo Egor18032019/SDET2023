@@ -6,10 +6,11 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: CI manual
+name: CI push
 
-on: workflow_dispatch
-
+#name: CI manual
+#on: workflow_dispatch
+on: [ push ]
 jobs:
   build:
 
