@@ -1,12 +1,13 @@
 package utils;
 
+import java.util.Date;
 import java.util.Map;
 
 public class Const {
     public static final String urlMain = "https://demoqa.com/automation-practice-form";
     public static final String pathGoogleDriver = "src/test/resources/chromedriver.exe";
     public static final String firstName = "Egor";
-    public static final String lastname = "Victorovich";
+    public static final String lastname = new Date().toString();
     public static final String mail = "goro4@mail.ru";
     public static final String gender = "Male";
     public static final String phone = "1234567890";
