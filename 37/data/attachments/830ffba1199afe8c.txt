@@ -1,0 +1,1 @@
+{Hobbies=, Subjects=English, Maths, Student Name=Egor Wed Sep 27 06:23:08 UTC 2023, Gender=Male, Address=currentAddress, Mobile=1234567890, State and City=NCR Noida, Picture=jpeg.jpg, Date of Birth=31 March,1982, Student Email=goro4@mail.ru}
