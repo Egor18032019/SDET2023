@@ -294,8 +294,10 @@ public class PracticeForm extends PageBase {
 //        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(false);", element);
 //        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView({block: \"center\",inline: \"center\",behavior: \"smooth\"});",element);
 //        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView({ block: \"end\" });", element);
-        ((JavascriptExecutor) webDriver).executeScript("window.scrollTo(0, Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, document.documentElement.clientHeight));");
-//        Actions actions = new Actions(webDriver);
+//        ((JavascriptExecutor) webDriver).executeScript("window.scrollTo(0, Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, document.documentElement.clientHeight));");
+        String mouseOverScript = "if(document.createEvent){var evObj = document.createEvent('MouseEvents');evObj.initEvent('mouseover', true, false); arguments[0].dispatchEvent(evObj);} else if(document.createEventObject) { arguments[0].fireEvent('onmouseover');}";
+        ((JavascriptExecutor) webDriver).executeScript(mouseOverScript, element);
+        //        Actions actions = new Actions(webDriver);
 //        actions.moveToElement(element);
 //        actions.perform();
     }
