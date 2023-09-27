@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"broken","Wed Sep 27 05:12:45 GMT 2023","Wed Sep 27 05:12:48 GMT 2023","3728","Surefire suite","Surefire test","tests.TestFirstCase","tests.TestFirstCase","userCanFillAndSubmitPracticeFrom","userCanFillAndSubmitPracticeFrom","Заполнение и отправка формы"
