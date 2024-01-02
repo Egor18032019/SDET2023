@@ -1,0 +1,1 @@
+{Gender=Male, Address=currentAddress, Mobile=1234567890, State and City=NCR Noida, Picture=jpeg.jpg, Date of Birth=31 March,1982, Student Email=name@example.com, Hobbies=, Subjects=English, Maths, Student Name=Egor Viktorovich}
