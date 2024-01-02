@@ -30,14 +30,15 @@ jobs:
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           echo Install: Chrome
           sudo dpkg --install google-chrome-stable_current_amd64.deb
-          wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/117.0.5938.92/linux64/chromedriver-linux64.zip
+          wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/120.0.6099.109/linux64/chromedriver-linux64.zip
           unzip chromedriver-linux64.zip
           cd chromedriver-linux64
+          echo Move: Chrome
           sudo mv chromedriver /usr/bin/chromedriver 
           sudo chown root:root /usr/bin/chromedriver
           sudo chmod +x /usr/bin/chromedriver
       - name: Build with Maven
-        run: mvn -B package --file pom.xml
+        run: mvn -B test --file pom.xml
         continue-on-error: true
       - name: See
         run: ls
