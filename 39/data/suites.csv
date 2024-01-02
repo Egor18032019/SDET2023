@@ -1,0 +1,3 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"skipped","Tue Jan 02 15:04:59 GMT 2024","Tue Jan 02 15:04:59 GMT 2024","1","Surefire suite","Surefire test","tests.TestFirstCase","tests.TestFirstCase","userCanFillAndSubmitPracticeFrom","userCanFillAndSubmitPracticeFrom","Заполнение и отправка формы"
+"broken","Tue Jan 02 15:04:59 GMT 2024","Tue Jan 02 15:04:59 GMT 2024","4","Surefire suite","Surefire test","tests.TestFirstCase","tests.TestFirstCase","openURL","openURL",""
