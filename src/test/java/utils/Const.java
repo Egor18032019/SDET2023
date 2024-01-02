@@ -3,6 +3,8 @@ package utils;
 import java.util.Map;
 
 public class Const {
+    public static final int width = 1920;
+    public static final int height = 1080;
     public static final String urlMain = "https://demoqa.com/automation-practice-form";
     public static final String pathGoogleDriver = "src/test/resources/chromedriver.exe";
     public static final String firstName = "Egor";
