@@ -1,6 +1,7 @@
 package tests.base;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -42,13 +43,14 @@ public class BaseCase {
             System.setProperty("webdriver.chrome.driver", Const.pathGoogleDriver);
         }
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("start-maximized");
+        options.addArguments("--headless");
+//        options.addArguments("start-maximized");
         options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
         options.setExperimentalOption("useAutomationExtension", false);
-//        options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         driver = new ChromeDriver(options);
+        driver.manage().window().setSize(new Dimension(1280, 1024));
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(1));
         driver.navigate().to(Const.urlMain);
     }
