@@ -8,6 +8,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import utils.Const;
@@ -16,6 +18,8 @@ import utils.Utils;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Collections;
+
+import static utils.Utils.takeScreenShot;
 
 /**
  * Родительский класс в котором прописано открытие браузера и закрытие браузера
@@ -57,6 +61,11 @@ public class BaseCase {
         driver.quit();
         LOGGER.info("Test end time:" + LocalTime.now());
     }
-
+    @AfterMethod
+    public void takeScreenShotOnFailure(ITestResult testResult) {
+        if (testResult.getStatus() == ITestResult.FAILURE) {
+            takeScreenShot(driver);
+        }
+    }
 
 }
