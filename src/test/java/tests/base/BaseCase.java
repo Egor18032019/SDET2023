@@ -46,7 +46,8 @@ public class BaseCase {
         options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
         options.setExperimentalOption("useAutomationExtension", false);
         options.addArguments("--headless");
-
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
         driver = new ChromeDriver(options);
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(1));
         driver.navigate().to(Const.urlMain);
