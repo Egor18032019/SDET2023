@@ -1,0 +1,1 @@
+[{"uid":"ed6f77e707db7c15","name":"userCanFillAndSubmitPracticeFrom","time":{"start":1704212622861,"stop":1704212622863,"duration":2},"status":"skipped","severity":"normal"},{"uid":"b83a50dc7c59ce8a","name":"openURL","time":{"start":1704212622716,"stop":1704212622721,"duration":5},"status":"broken","severity":"normal"}]
