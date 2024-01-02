@@ -51,6 +51,7 @@ public class BaseCase {
         options.addArguments("--disable-dev-shm-usage");
         driver = new ChromeDriver(options);
         driver.manage().window().setSize(new Dimension( Const.width,  Const.height));
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(1));
         driver.navigate().to(Const.urlMain);
     }
