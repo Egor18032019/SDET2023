@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Wed Jan 03 08:26:58 GMT 2024","Wed Jan 03 08:27:03 GMT 2024","4234","Surefire suite","Surefire test","tests.TestFirstCase","tests.TestFirstCase","userCanFillAndSubmitPracticeFrom","userCanFillAndSubmitPracticeFrom","Заполнение и отправка формы"
