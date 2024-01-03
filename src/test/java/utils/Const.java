@@ -11,7 +11,7 @@ public class Const {
     public static final String lastname = "Viktorovich";
     public static final String mail = "name@example.com";
     public static final String gender = "Male";
-    public static final String phone = "1234567890";
+    public static final String phone = "8234567890";
     public static final String day = "31";
     public static final String answer = "Thanks for submitting the form";
     public static final String month = "March";
